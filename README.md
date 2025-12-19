@@ -17,3 +17,7 @@ expense-tracker/
 ├── expense_tracker.py
 ├── expenses.json
 ├── README.md
+
+## 🔗 Project URL
+
+https://github.com/rushi1808/expense-traker-py
