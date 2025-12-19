@@ -3,5 +3,10 @@
         "amount": 25.0,
         "category": "A",
         "note": "hey Rushi"
+    },
+    {
+        "amount": 309.0,
+        "category": "A1",
+        "note": "heyy  rushi patil "
     }
 ]
