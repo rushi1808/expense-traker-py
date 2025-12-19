@@ -1,23 +1,28 @@
-Expense Tracker – Python CLI
+# Expense Tracker – Python CLI
 
-A **single-file Command Line Expense Tracker** built using **Python**.  
-The application allows users to **add, view, and delete expenses using Serial Number (Sr No)** with **persistent JSON storage**.  
-This project is suitable for **college mini projects, interviews, and beginners**.
+A simple **single-file Command Line Expense Tracker** built using **Python**.  
+Users can **add, view, and delete expenses using Serial Number (Sr No)** with **persistent JSON storage**.
 
+---
 
- ✨ Features
-- ➕ Add expense  
-- 📋 View expenses with Sr No  
-- 🗑️ Delete expense using Sr No  
-- 💾 JSON-based persistent storage  
-- 🖥️ CLI-based, single-file program
+# Project URL
+https://github.com/rushi1808/expense-traker-py
 
- 📁 Project Structure
-expense-tracker/
+---
+
+# Features
+- Add expense  
+- View expenses with Sr No  
+- Delete expense using Sr No  
+- JSON-based storage  
+- CLI-based application  
+
+---
+
+# Project Structure
+expense-traker-py/
 ├── expense_tracker.py
 ├── expenses.json
 ├── README.md
 
-## 🔗 Project URL
 
-https://github.com/rushi1808/expense-traker-py
