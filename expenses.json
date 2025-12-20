@@ -10,13 +10,13 @@
         "note": "hii"
     },
     {
-        "amount": "800",
-        "category": "A++",
-        "note": "Hey rushikesh patil"
-    },
-    {
         "amount": "200",
         "category": "B+",
         "note": "yache 200 rs baki "
+    },
+    {
+        "amount": 360.0,
+        "category": "B2",
+        "note": "hyyy"
     }
 ]

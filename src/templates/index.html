@@ -3,17 +3,21 @@
 <head>
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <div class="container">
-    <h1>💰 Expense Tracker</h1>
+    <h1>
+        💰 Expense Tracker
+        <span class="toggle" onclick="toggleDark()">🌙</span>
+    </h1>
 
     <a href="/add" class="button">➕ Add Expense</a>
 
     <table>
         <tr>
-            <th>Sr No</th>
+            <th>Sr</th>
             <th>Amount</th>
             <th>Category</th>
             <th>Note</th>
@@ -27,12 +31,48 @@
             <td>{{ e["category"] }}</td>
             <td>{{ e["note"] }}</td>
             <td>
+                <a href="/edit/{{ loop.index }}" class="button">Edit</a>
                 <a href="/delete/{{ loop.index }}" class="button delete">Delete</a>
             </td>
         </tr>
         {% endfor %}
     </table>
+
+    <canvas id="chart"></canvas>
 </div>
 
-</body>
-</html>
+<script id="chart-data" type="application/json">
+{
+  "categories": {{ expenses | map(attribute='category') | list | tojson }},
+  "amounts": {{ expenses | map(attribute='amount') | list | tojson }}
+}
+</script>
+
+<script>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+
+/* Read JSON safely */
+const chartData = JSON.parse(
+    document.getElementById("chart-data").textContent
+);
+
+new Chart(document.getElementById("chart"), {
+    type: "bar",
+    data: {
+        labels: chartData.categories,
+        datasets: [{
+            label: "Expenses",
+            data: chartData.amounts,
+            backgroundColor: [
+                "#36d1dc",
+                "#5b86e5",
+                "#ff4b2b",
+                "#38ef7d",
+                "#667eea"
+            ]
+        }]
+    }
+});
+</script>
