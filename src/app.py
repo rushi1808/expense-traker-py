@@ -1,38 +1,33 @@
-import json
-import os
+from flask import Flask, render_template, request, redirect, url_for
+from expense_cli import add_expense, get_expenses, delete_expense
 
-FILE_NAME = "expenses.json"
-
-
-def load_expenses():
-    if not os.path.exists(FILE_NAME):
-        return []
-    with open(FILE_NAME, "r") as file:
-        return json.load(file)
+app = Flask(__name__)
 
 
-def save_expenses(expenses):
-    with open(FILE_NAME, "w") as file:
-        json.dump(expenses, file, indent=4)
+@app.route("/")
+def index():
+    expenses = get_expenses()
+    return render_template("index.html", expenses=expenses)
+
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    if request.method == "POST":
+        amount = request.form["amount"]
+        category = request.form["category"]
+        note = request.form["note"]
+
+        add_expense(amount, category, note)
+        return redirect(url_for("index"))
+
+    return render_template("add.html")
 
 
-def add_expense(amount, category, note):
-    expenses = load_expenses()
-    expenses.append({
-        "amount": amount,
-        "category": category,
-        "note": note
-    })
-    save_expenses(expenses)
+@app.route("/delete/<int:sr_no>")
+def delete(sr_no):
+    delete_expense(sr_no)
+    return redirect(url_for("index"))
 
 
-def delete_expense(sr_no):
-    expenses = load_expenses()
-    if 1 <= sr_no <= len(expenses):
-        expenses.pop(sr_no - 1)
-        save_expenses(expenses)
-
-
-# ✅ ADD THIS FUNCTION
-def get_expenses():
-    return load_expenses()
+# ✅ THIS WAS MISSING
+if __name__ == "__main__":
+    app.run(debug=True)

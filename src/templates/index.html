@@ -22,16 +22,12 @@
     {% for e in expenses %}
     <tr>
         <td>{{ loop.index }}</td>
-        <td>₹{{ e.amount }}</td>
-        <td>{{ e.category }}</td>
-        <td>{{ e.note }}</td>
+        <td>₹{{ e["amount"] }}</td>
+        <td>{{ e["category"] }}</td>
+        <td>{{ e["note"] }}</td>
         <td>
             <a href="/delete/{{ loop.index }}">Delete</a>
         </td>
     </tr>
     {% endfor %}
-
 </table>
-
-</body>
-</html>

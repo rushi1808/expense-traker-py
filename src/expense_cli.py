@@ -1,5 +1,3 @@
-# expense_cli.py
-
 import json
 import os
 
@@ -20,21 +18,20 @@ def save_expenses(expenses):
 
 def add_expense(amount, category, note):
     expenses = load_expenses()
-    expense = {
+    expenses.append({
         "amount": amount,
         "category": category,
         "note": note
-    }
-    expenses.append(expense)
+    })
     save_expenses(expenses)
 
 
-def view_expenses():
+def delete_expense(sr_no):
     expenses = load_expenses()
-    if not expenses:
-        print("No expenses found.")
-        return
+    if 1 <= sr_no <= len(expenses):
+        expenses.pop(sr_no - 1)
+        save_expenses(expenses)
 
-    print("\n--- Expense List ---")
-    for idx, exp in enumerate(expenses, start=1):
-        print(f"{idx}. ₹{exp['amount']} | {exp['category']} | {exp['note']}")
+
+def get_expenses():
+    return load_expenses()
