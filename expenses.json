@@ -8,5 +8,10 @@
         "amount": 309.0,
         "category": "A1",
         "note": "heyy  rushi patil "
+    },
+    {
+        "amount": 309.0,
+        "category": "B1",
+        "note": "hii"
     }
 ]
