@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+</head>
+<body>
+
+<h1>Expense Tracker</h1>
+
+<a href="/add">➕ Add Expense</a>
+<br><br>
+
+<table border="1">
+    <tr>
+        <th>Sr No</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Note</th>
+        <th>Action</th>
+    </tr>
+
+    {% for e in expenses %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>₹{{ e.amount }}</td>
+        <td>{{ e.category }}</td>
+        <td>{{ e.note }}</td>
+        <td>
+            <a href="/delete/{{ loop.index }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
