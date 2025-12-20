@@ -2,32 +2,37 @@
 <html>
 <head>
     <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<h1>Expense Tracker</h1>
+<div class="container">
+    <h1>💰 Expense Tracker</h1>
 
-<a href="/add">➕ Add Expense</a>
-<br><br>
+    <a href="/add" class="button">➕ Add Expense</a>
 
-<table border="1">
-    <tr>
-        <th>Sr No</th>
-        <th>Amount</th>
-        <th>Category</th>
-        <th>Note</th>
-        <th>Action</th>
-    </tr>
+    <table>
+        <tr>
+            <th>Sr No</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Note</th>
+            <th>Action</th>
+        </tr>
 
-    {% for e in expenses %}
-    <tr>
-        <td>{{ loop.index }}</td>
-        <td>₹{{ e["amount"] }}</td>
-        <td>{{ e["category"] }}</td>
-        <td>{{ e["note"] }}</td>
-        <td>
-            <a href="/delete/{{ loop.index }}">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+        {% for e in expenses %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>₹{{ e["amount"] }}</td>
+            <td>{{ e["category"] }}</td>
+            <td>{{ e["note"] }}</td>
+            <td>
+                <a href="/delete/{{ loop.index }}" class="button delete">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

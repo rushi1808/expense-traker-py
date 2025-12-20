@@ -1,0 +1,138 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(120deg, #667eea, #764ba2);
+    min-height: 100vh;
+    animation: fadeIn 1s ease-in;
+}
+
+/* ===== CONTAINER CARD ===== */
+.container {
+    width: 85%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: slideUp 0.8s ease;
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* ===== BUTTONS ===== */
+.button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: linear-gradient(45deg, #36d1dc, #5b86e5);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ===== DELETE BUTTON ===== */
+.delete {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s;
+}
+
+tr:hover td {
+    background-color: #f1f3ff;
+}
+
+/* ===== FORM ===== */
+form {
+    width: 60%;
+    margin: auto;
+    animation: fadeIn 1s ease;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 8px rgba(102,126,234,0.4);
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

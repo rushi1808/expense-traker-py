@@ -2,21 +2,23 @@
 <html>
 <head>
     <title>Add Expense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<h1>Add Expense</h1>
+<div class="container">
+    <h1>➕ Add New Expense</h1>
 
-<form method="post">
-    Amount: <input type="number" step="0.01" name="amount" required><br><br>
-    Category: <input type="text" name="category" required><br><br>
-    Note: <input type="text" name="note"><br><br>
+    <form method="post">
+        <input type="number" step="0.01" name="amount" placeholder="Amount (₹)" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <input type="text" name="note" placeholder="Note">
+        <button type="submit">Save Expense</button>
+    </form>
 
-    <button type="submit">Add Expense</button>
-</form>
-
-<br>
-<a href="/">⬅ Back</a>
+    <br>
+    <a href="/" class="button">⬅ Back</a>
+</div>
 
 </body>
 </html>
