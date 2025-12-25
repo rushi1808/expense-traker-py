@@ -1,103 +1,99 @@
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(120deg, #667eea, #764ba2);
-    min-height: 100vh;
-    animation: fade 1s;
-}
-
-body.dark {
-    background: linear-gradient(120deg, #111, #333);
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     width: 85%;
-    max-width: 1000px;
-    background: white;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    animation: slide 0.8s;
-}
-
-body.dark .container {
-    background: #1f1f1f;
-    color: white;
+    margin: 30px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 25px;
 }
 
-.toggle {
-    float: right;
+/* ===== FORM ===== */
+.expense-form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.expense-form input,
+.expense-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 18px;
-    margin: 4px;
-    border-radius: 25px;
-    background: linear-gradient(45deg, #36d1dc, #5b86e5);
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
+.add-btn:hover {
+    background: #218838;
 }
 
-.button:hover {
-    transform: scale(1.05);
-}
-
-.delete {
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
-}
-
+/* ===== TABLE ===== */
 table {
     width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
 }
 
-th {
-    background: #667eea;
-    color: white;
-    padding: 10px;
+thead {
+    background: #f1f1f1;
 }
 
-td {
+th, td {
     padding: 10px;
+    border: 1px solid #ddd;
     text-align: center;
 }
 
-tr:hover td {
-    background: #f1f3ff;
-}
-
-input, button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-}
-
-button {
-    border-radius: 25px;
+.edit-btn {
+    background: #ffc107;
     border: none;
-    background: linear-gradient(45deg, #11998e, #38ef7d);
-    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
-@keyframes slide {
-    from { transform: translateY(40px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-@keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* ===== FOOTER ===== */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.filter select {
+    padding: 5px;
 }

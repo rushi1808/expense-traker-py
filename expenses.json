@@ -10,13 +10,8 @@
         "note": "hii"
     },
     {
-        "amount": "200",
-        "category": "B+",
-        "note": "yache 200 rs baki "
-    },
-    {
-        "amount": 360.0,
-        "category": "B2",
-        "note": "hyyy"
+        "amount": 500.0,
+        "category": "Food",
+        "note": "Food"
     }
 ]

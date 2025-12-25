@@ -34,7 +34,7 @@ def edit(sr_no):
         save_expenses(expenses)
         return redirect(url_for("index"))
 
-    return render_template("edit.html", expense=expense, sr_no=sr_no)
+    return render_template("edit.html", expense=expense)
 
 
 @app.route("/delete/<int:sr_no>")
