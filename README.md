@@ -1,40 +1,209 @@
-# ExpenseTracker
-The Expense Tracker project aims to provide users with a convenient way to track their expenses. The project addresses the common problem of individuals and businesses needing to monitor and manage their spending habits. By developing an expense tracking application, users can easily record and analyse their expenses, helping them make informed financial decisions.
-## Features
-**1) User Registration and Login:** The project implemented a user registration and login system using ASP.NET MVC. Users can create an account with a unique username, password, and email. Password and email validation rules were enforced to ensure security and proper formatting.
+# 💸 Expense Tracker — Django
 
-**2) Expense Tracking and Budgeting:** The project provides functionality for users to track their expenses and create custom budgets. Users can enter their expenses, categorize them, and assign them to a specific budget. Budgets can be customized with allocated percentages for different expense categories, allowing users to manage their finances effectively.
+A **premium, full-featured Expense Tracker** web application built with **Python & Django**, featuring a modern dark-themed UI, interactive Chart.js analytics, day-wise Tally ledger, and full budget management — all in **Indian Rupees (₹)**.
 
-**3) User Dashboard:** A user dashboard was developed to provide users with an overview of their financial status. The dashboard displays the user's current budget, remaining budget, budget spent percentage, recent expenses, and a breakdown of expenses by category. It also highlights the top expense day in the last week.
+---
 
-**4) Budget Management:** The project enables users to create, update, and delete budgets. Users can create custom budgets by specifying their monthly income, start date, end date, and allocation percentages for different expense categories. The system validates the allocated percentages to ensure they sum up to 100%. Users can also view and manage their existing budgets, including updating budget details and deleting budgets if needed.
+## 🖥️ Live Preview
 
-Overall, the project successfully provides users with a personal expense tracking and budgeting solution, helping them monitor their expenses, analyze spending patterns, and stay within their budget limits.
-## Screenshots
-![Alt Text](UserInterfaceScreenshots/1.JPG)
+> Run locally at `http://127.0.0.1:8000/`
 
-![Alt Text](UserInterfaceScreenshots/2.JPG)
+---
 
-![Alt Text](UserInterfaceScreenshots/3.JPG)
+## ✨ Features
 
-![Alt Text](UserInterfaceScreenshots/4.JPG)
+| Feature | Description |
+|---|---|
+| 🔐 **User Auth** | Register, Login, Logout with session-based authentication |
+| 📊 **Dashboard** | Stats bar (budget, total expenses, remaining), pie chart, recent expenses |
+| 💰 **Manage Expenses** | Add, Edit, Delete expenses with category, date, amount & description |
+| 🗂️ **Budget Management** | Create budgets with monthly income, start/end dates & category allocations |
+| 📒 **Tally (हिसाब)** | Day-wise & monthly ledger with running totals — like an Excel sheet |
+| 📈 **Reports & Analytics** | Bar chart (by category) + Line chart (spending over time) using Chart.js |
+| 🇮🇳 **Indian Rupee (₹)** | All amounts displayed in ₹ |
+| 📱 **Responsive Design** | Clean, mobile-friendly layout |
 
-![Alt Text](UserInterfaceScreenshots/5.JPG)
+---
 
-![Alt Text](UserInterfaceScreenshots/6.JPG)
+## 🛠️ Tech Stack
 
-![Alt Text](UserInterfaceScreenshots/7.JPG)
+| Layer | Technology |
+|---|---|
+| **Backend** | Python 3.13, Django 4.2 |
+| **Database** | SQLite (default), MySQL supported |
+| **Frontend** | Vanilla HTML5 + CSS3 (no frameworks) |
+| **Charts** | Chart.js (CDN) |
+| **Fonts** | Google Fonts — Inter |
+| **Auth** | Django Sessions |
 
-![Alt Text](UserInterfaceScreenshots/8.JPG)
+---
 
-![Alt Text](UserInterfaceScreenshots/9.JPG)
+## 📁 Project Structure
 
-![Alt Text](UserInterfaceScreenshots/10.JPG)
+```
+expense-traker-py/
+│
+├── python_version/
+│   ├── expense_app/
+│   │   ├── models.py          # User, Budget, BudgetCategory, Expense models
+│   │   ├── views.py           # All view logic
+│   │   ├── urls.py            # URL routing
+│   │   ├── forms.py           # Django forms
+│   │   └── static/
+│   │       └── expense_app/
+│   │           └── style.css  # Premium CSS design system
+│   │
+│   ├── expense_tracker/
+│   │   ├── settings.py
+│   │   └── urls.py
+│   │
+│   ├── templates/
+│   │   ├── base.html                  # Base layout + navbar
+│   │   ├── login.html                 # Login page
+│   │   ├── register.html              # Register page
+│   │   ├── user_dashboard.html        # Dashboard with charts
+│   │   ├── expense_list.html          # Expense table
+│   │   ├── expense_form.html          # Add / Edit expense
+│   │   ├── expense_confirm_delete.html
+│   │   ├── budget_list.html           # Budget cards
+│   │   ├── budget_form.html           # Create budget
+│   │   ├── budget_confirm_delete.html
+│   │   ├── expenses_summary.html      # Reports & Analytics
+│   │   └── tally.html                 # Day-wise Tally ledger
+│   │
+│   ├── manage.py
+│   └── requirements.txt
+│
+├── .gitignore
+└── README.md
+```
 
-![Alt Text](UserInterfaceScreenshots/11.JPG)
+---
 
-![Alt Text](UserInterfaceScreenshots/12.JPG)
+## 🚀 Getting Started
 
-![Alt Text](UserInterfaceScreenshots/13.JPG)
+### Prerequisites
 
-![Alt Text](UserInterfaceScreenshots/14.JPG)
+- Python 3.10+ installed
+- pip
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/rushipatil1808/expense-traker-py.git
+cd expense-traker-py/python_version
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# Mac/Linux
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Apply migrations
+
+```bash
+python manage.py migrate
+```
+
+### 5. Run the development server
+
+```bash
+python manage.py runserver
+```
+
+Open your browser and go to 👉 **http://127.0.0.1:8000/**
+
+---
+
+## 📸 Pages Overview
+
+### 🔐 Login & Register
+Clean centered card with red brand badge, form validation.
+
+### 📊 Dashboard
+- Budget name, total expenses, remaining budget with progress bar
+- Pie chart — expense breakdown by category
+- Recent expenses table
+
+### 💳 Manage Expenses
+Full CRUD table — add, edit, delete expenses with date, category, amount & description.
+
+### 🗂️ Manage Budgets
+Budget cards with monthly income, date range, **Select & Add Expense** and **Delete** buttons.
+
+### 📒 Tally (हिसाब)
+> Day-wise ledger like an Excel sheet
+- Filter by **month & year**
+- Each day shows all expenses with **category badge** and **description**
+- **Day total** + **Running total** per day
+- **Monthly summary sidebar** — click any month to jump to it
+
+### 📈 Reports & Analytics
+- **Bar chart** — spending by category
+- **Line chart** — spending trend over months
+
+---
+
+## ⚙️ Configuration
+
+### Switch to MySQL
+
+In `python_version/expense_tracker/settings.py`, replace the `DATABASES` section:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'expense_tracker',
+        'USER': 'your_mysql_user',
+        'PASSWORD': 'your_mysql_password',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
+
+Then install the MySQL client:
+```bash
+pip install mysqlclient
+```
+
+---
+
+## 📋 Requirements
+
+```
+Django==4.2
+```
+
+> Chart.js is loaded via CDN — no npm needed.
+
+---
+
+## 👨‍💻 Author
+
+**Rushi Patil**
+- GitHub: [@rushipatil1808](https://github.com/rushipatil1808)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+> Built with ❤️ using Python & Django
