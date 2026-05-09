@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "cd python_version && python -m pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+buildCommand = "pip install -r requirements.txt && cd python_version && python manage.py collectstatic --noinput && python manage.py migrate"
 
 [deploy]
-startCommand = "cd python_version && python -m gunicorn expense_tracker.wsgi --bind 0.0.0.0:$PORT"
+startCommand = "gunicorn --chdir python_version expense_tracker.wsgi --bind 0.0.0.0:$PORT"
