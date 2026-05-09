@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Manage Budgets — Expense Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Manage Budgets</h1>
+
+<div class="actions-row">
+  <a href="{% url 'budget_create' %}" class="btn btn-primary">+ Create Budget</a>
+</div>
+
+{% if budgets %}
+<div class="budget-grid">
+  {% for budget in budgets %}
+  <div class="budget-card">
+    <h3>{{ budget.name }}</h3>
+    <p>Monthly Income: <span>&#8377;{{ budget.monthly_income }}</span></p>
+    <p>Start Date: <span>{{ budget.start_date }}</span></p>
+    <p>End Date: <span>{{ budget.end_date }}</span></p>
+    <div class="card-actions">
+      <a href="{% url 'select_budget' budget.pk %}" class="btn btn-primary btn-sm">Select &amp; Add Expense</a>
+      <a href="{% url 'budget_delete' budget.pk %}" class="btn btn-danger btn-sm">Delete</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+<div class="card" style="text-align:center;padding:40px;">
+  <p style="color:var(--text-muted);font-size:15px;">No budgets yet.</p>
+  <a href="{% url 'budget_create' %}" class="btn btn-primary" style="margin-top:16px;">Create your first budget</a>
+</div>
+{% endif %}
+
+{% endblock %}

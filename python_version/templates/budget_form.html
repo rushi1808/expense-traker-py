@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Create Custom Budget — Expense Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Create Custom Budget</h1>
+
+<div class="form-card" style="max-width:600px;">
+  <form method="post" id="budget-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_name">Name</label>
+      <input type="text" name="name" id="id_name" value="{{ form.name.value|default:'' }}" placeholder="e.g. Monthly Budget">
+      {% if form.name.errors %}<span style="color:var(--red);font-size:12px;">{{ form.name.errors.0 }}</span>{% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_monthly_income">MonthlyIncome</label>
+      <input type="number" name="monthly_income" id="id_monthly_income" step="0.01" min="0"
+             value="{{ form.monthly_income.value|default:0 }}">
+      {% if form.monthly_income.errors %}<span style="color:var(--red);font-size:12px;">{{ form.monthly_income.errors.0 }}</span>{% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_start_date">StartDate</label>
+      <input type="date" name="start_date" id="id_start_date"
+             value="{{ form.start_date.value|default:'' }}">
+      {% if form.start_date.errors %}<span style="color:var(--red);font-size:12px;">{{ form.start_date.errors.0 }}</span>{% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="id_end_date">EndDate</label>
+      <input type="date" name="end_date" id="id_end_date"
+             value="{{ form.end_date.value|default:'' }}">
+      {% if form.end_date.errors %}<span style="color:var(--red);font-size:12px;">{{ form.end_date.errors.0 }}</span>{% endif %}
+    </div>
+
+    <!-- Budget Categories -->
+    <div class="section-heading">Budget Categories</div>
+    <table class="category-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Allocation Percentage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Food</td>
+          <td><input type="number" name="category_food" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Transportation</td>
+          <td><input type="number" name="category_transportation" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Shopping</td>
+          <td><input type="number" name="category_shopping" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Bills</td>
+          <td><input type="number" name="category_bills" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Entertainment</td>
+          <td><input type="number" name="category_entertainment" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Education</td>
+          <td><input type="number" name="category_education" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+        <tr>
+          <td>Other</td>
+          <td><input type="number" name="category_other" step="0.1" min="0" max="100" value="0.0"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-submit" style="margin-top:28px;">
+      <button type="submit" class="btn btn-primary">Create Budget</button>
+      <a href="{% url 'budget_list' %}" class="btn btn-secondary" style="margin-left:8px;">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

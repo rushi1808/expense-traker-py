@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Delete Expense — Expense Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Delete Expense</h1>
+
+<div class="delete-card">
+  <p>Are you sure you want to delete the following expense?</p>
+
+  <table class="data-table" style="margin-bottom:20px;">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.category }}</td>
+        <td>&#8377;{{ expense.amount }}</td>
+        <td>{{ expense.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'expense_list' %}" class="btn btn-secondary" style="margin-left:8px;">Cancel</a>
+  </form>
+</div>
+{% endblock %}

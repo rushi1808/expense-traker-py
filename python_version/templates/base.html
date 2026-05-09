@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Expense Tracker{% endblock %}</title>
+  <meta name="description" content="Expense Tracker — Manage your expenses, budgets and reports in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'expense_app/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="{% url 'user_dashboard' %}">Expense Tracker</a>
+
+    <ul class="navbar-links">
+      <li><a href="{% url 'user_dashboard' %}" {% if request.resolver_match.url_name == 'user_dashboard' %}class="active"{% endif %}>Dashboard</a></li>
+      <li><a href="{% url 'expense_list' %}" {% if request.resolver_match.url_name == 'expense_list' %}class="active"{% endif %}>Manage Expenses</a></li>
+      <li><a href="{% url 'budget_list' %}" {% if request.resolver_match.url_name == 'budget_list' %}class="active"{% endif %}>Manage Budgets</a></li>
+      <li><a href="{% url 'expenses_summary' %}" {% if request.resolver_match.url_name == 'expenses_summary' %}class="active"{% endif %}>Reports and Analytics</a></li>
+      <li><a href="{% url 'tally' %}" {% if request.resolver_match.url_name == 'tally' %}class="active"{% endif %}>Tally</a></li>
+    </ul>
+
+    <div class="navbar-right">
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </nav>
+
+  <!-- ════ CONTENT ════ -->
+  <div class="main-content">
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

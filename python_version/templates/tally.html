@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% block title %}Tally — Expense Tracker{% endblock %}
+
+{% block extra_head %}
+<style>
+/* ── Hishob Page Styles ── */
+.hishob-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hishob-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hishob-title span {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+/* Filter bar */
+.hishob-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hishob-filter select {
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 13.5px;
+  color: var(--text);
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+}
+
+.hishob-filter select:focus { border-color: var(--red); }
+
+/* Two-column layout */
+.hishob-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (max-width: 900px) { .hishob-layout { grid-template-columns: 1fr; } }
+
+/* Day block */
+.day-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #f8f8f8;
+  border-bottom: 1px solid var(--border);
+}
+
+.day-header .day-label {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-header .day-label .day-name {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  background: var(--border);
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.day-header .day-total {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.day-header .running-total {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 10px;
+}
+
+.day-expenses {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.day-expenses td {
+  padding: 9px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  color: var(--text);
+}
+
+.day-expenses tr:last-child td { border-bottom: none; }
+
+.day-expenses td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.day-expenses td.cat-badge {
+  width: 110px;
+}
+
+.cat-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  background: #ffe5e5;
+  color: var(--red);
+}
+
+.desc-text {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* No data */
+.no-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Month grand total banner */
+.grand-total-bar {
+  background: var(--red);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.grand-total-bar .grand-amount { font-size: 20px; font-weight: 700; }
+
+/* Monthly summary sidebar */
+.monthly-sidebar {
+  position: sticky;
+  top: 70px;
+}
+
+.monthly-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.monthly-table th {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: #f8f8f8;
+  border-bottom: 1px solid var(--border);
+}
+
+.monthly-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: var(--text);
+}
+
+.monthly-table td:last-child { text-align: right; font-weight: 600; }
+
+.monthly-table tr:last-child td { border-bottom: none; }
+
+.monthly-table tr.selected-month {
+  background: #fff5f5;
+}
+
+.monthly-table tr.selected-month td { color: var(--red); font-weight: 700; }
+
+.monthly-table td a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.monthly-table td a:hover { color: var(--red); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="hishob-header">
+  <div>
+    <div class="hishob-title">
+      Tally
+      <span>Day-wise &amp; Monthly Tally</span>
+    </div>
+  </div>
+
+  <!-- Month / Year Filter -->
+  <form method="get" class="hishob-filter" id="hishob-filter-form">
+    <select name="month" onchange="this.form.submit()">
+      {% for num, name in months %}
+      <option value="{{ num }}" {% if num == selected_month %}selected{% endif %}>{{ name }}</option>
+      {% endfor %}
+    </select>
+    <select name="year" onchange="this.form.submit()">
+      {% for yr in years %}
+      <option value="{{ yr }}" {% if yr == selected_year %}selected{% endif %}>{{ yr }}</option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
+<div class="hishob-layout">
+
+  <!-- ── LEFT: Day-wise Ledger ── -->
+  <div>
+
+    <!-- Grand Total Banner -->
+    <div class="grand-total-bar">
+      <span>Total for {{ selected_month_name }}</span>
+      <span class="grand-amount">&#8377;{{ month_grand_total }}</span>
+    </div>
+
+    {% if day_rows %}
+      {% for row in day_rows %}
+      <div class="day-block">
+
+        <div class="day-header">
+          <div class="day-label">
+            {{ row.date }} &nbsp;
+            <span class="day-name">{{ row.day_name }}</span>
+          </div>
+          <div>
+            <span class="day-total">&#8377;{{ row.day_total }}</span>
+            <span class="running-total">Running: &#8377;{{ row.running_total }}</span>
+          </div>
+        </div>
+
+        <table class="day-expenses">
+          {% for exp in row.expenses %}
+          <tr>
+            <td class="cat-badge"><span class="cat-tag">{{ exp.category }}</span></td>
+            <td><span class="desc-text">{{ exp.description|default:"—" }}</span></td>
+            <td style="text-align:right;font-weight:700;color:var(--red);">&#8377;{{ exp.amount }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+      </div>
+      {% endfor %}
+
+    {% else %}
+    <div class="no-data">
+      No expenses found for <strong>{{ selected_month_name }}</strong>.<br>
+      <a href="{% url 'budget_list' %}" style="color:var(--red);font-weight:600;margin-top:8px;display:inline-block;">
+        + Add expenses &rarr;
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- ── RIGHT: Monthly Summary Sidebar ── -->
+  <div class="monthly-sidebar">
+    <div class="card" style="padding:0;">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:14px;">
+        Monthly Summary
+      </div>
+      {% if monthly_summary %}
+      <table class="monthly-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in monthly_summary reversed %}
+          <tr {% if item.year == selected_year and item.month == selected_month %}class="selected-month"{% endif %}>
+            <td>
+              <a href="?year={{ item.year }}&month={{ item.month }}">{{ item.month_name }}</a>
+            </td>
+            <td>
+              <a href="?year={{ item.year }}&month={{ item.month }}">&#8377;{{ item.total }}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div style="padding:20px;color:var(--text-muted);font-size:13px;text-align:center;">No data yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

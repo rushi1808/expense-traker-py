@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Reports and Analytics — Expense Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Expense by Category</h1>
+
+<!-- Expense by Category Bar Chart -->
+<div class="card">
+  <div class="chart-container">
+    <canvas id="categoryChart"></canvas>
+  </div>
+</div>
+
+<!-- Expense Over Time Line Chart -->
+<div class="card">
+  <div class="card-title" style="text-align:center;font-size:16px;">Expense Over Time</div>
+  <div class="chart-container">
+    <canvas id="timeChart"></canvas>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // ── Category Bar Chart ──
+  const catLabels = [{% for item in expenses_by_category %}"{{ item.category }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+  const catValues = [{% for item in expenses_by_category %}{{ item.amount }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+  const catColors = [
+    'rgba(155,89,182,0.7)','rgba(26,188,156,0.7)','rgba(52,152,219,0.7)',
+    'rgba(231,76,60,0.7)','rgba(241,196,15,0.7)','rgba(230,126,34,0.7)',
+    'rgba(149,165,166,0.7)'
+  ];
+
+  new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: {
+      labels: catLabels,
+      datasets: [{
+        label: 'Total Amount',
+        data: catValues,
+        backgroundColor: catColors.slice(0, catLabels.length),
+        borderColor: catColors.slice(0, catLabels.length).map(c => c.replace('0.7','1')),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { font: { family: 'Inter', size: 12 } } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } },
+        y: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 11 } } }
+      }
+    }
+  });
+
+  // ── Over Time Line Chart ──
+  const timeLabels = [{% for item in expenses_over_time %}"{{ item.label }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+  const timeValues = [{% for item in expenses_over_time %}{{ item.amount }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+  new Chart(document.getElementById('timeChart'), {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Total Amount',
+        data: timeValues,
+        borderColor: '#4dc9f6',
+        backgroundColor: 'rgba(77,201,246,0.1)',
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#4dc9f6',
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { font: { family: 'Inter', size: 12 } } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } },
+        y: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 11 } } }
+      }
+    }
+  });
+</script>
+{% endblock %}

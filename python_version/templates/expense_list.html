@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Manage Expenses — Expense Tracker{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Manage Expenses</h1>
+
+<div class="actions-row">
+  <a href="{% url 'budget_list' %}" class="btn btn-primary">+ Add Expense</a>
+</div>
+
+<div class="card" style="padding:0;">
+  {% if expenses %}
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for expense in expenses %}
+      <tr>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.category }}</td>
+        <td>&#8377;{{ expense.amount }}</td>
+        <td>{{ expense.description }}</td>
+        <td>
+          <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-sm btn-secondary">Edit</a>
+          <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="padding:40px;text-align:center;color:var(--text-muted);">
+    No expenses yet. <a href="{% url 'budget_list' %}" style="color:var(--red);font-weight:600;">Add your first expense &rarr;</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
